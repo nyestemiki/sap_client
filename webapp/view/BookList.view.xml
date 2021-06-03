@@ -1,0 +1,144 @@
+<mvc:View
+	controllerName="library.controller.BookList"
+	xmlns="sap.ui.table"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:fb="sap.ui.comp.filterbar"
+	xmlns:m="sap.m">
+	<fb:FilterBar
+		id="filterBar"
+		reset="onReset"
+		search="onSearch"
+		showClearButton="true">
+		<fb:filterGroupItems>
+			<fb:FilterGroupItem
+				groupName="filt"
+				name="BooksId"
+				visibleInFilterBar="true"
+				label="ISBN">
+				<fb:control>
+					<m:Input name="BooksId" />
+				</fb:control>
+			</fb:FilterGroupItem>
+
+			<fb:FilterGroupItem
+				groupName="filt"
+				name="Author"
+				visibleInFilterBar="true"
+				label="Author">
+				<fb:control>
+					<m:Input name="Author" />
+				</fb:control>
+			</fb:FilterGroupItem>
+
+			<fb:FilterGroupItem
+				groupName="filt"
+				visibleInFilterBar="true"
+				name="Title"
+				label="Title">
+				<fb:control>
+					<m:Input name="Title" />
+				</fb:control>
+			</fb:FilterGroupItem>
+
+			<fb:FilterGroupItem
+				groupName="filt"
+				name="DatePublished"
+				visibleInFilterBar="true"
+				label="Date Published">
+				<fb:control>
+					<m:DateTimePicker
+						id='dpicker'
+						valueFormat="yyyy-MM-ddTHH:mm:ss"
+						name="DatePublished" />
+				</fb:control>
+			</fb:FilterGroupItem>
+
+			<fb:FilterGroupItem
+				groupName="filt"
+				visibleInFilterBar="true"
+				name="Language"
+				label="Language">
+				<fb:control>
+					<m:Input name="Language" />
+				</fb:control>
+			</fb:FilterGroupItem>
+		</fb:filterGroupItems>
+	</fb:FilterBar>
+	<m:Button
+		text="Check out"
+		press="onCheckout" />
+	<Table
+		id="idBooksTable"
+		selectionMode="Multi"
+		alternateRowColors="true"
+		visibleRowCount="20"
+		rows="{/BooksSet}">
+
+		<columns>
+			<Column
+				id="title_col"
+				sortProperty="Title">
+				<m:Label text="Title" />
+				<template>
+					<m:Text
+						text="{Title}"
+						wrapping="false" />
+				</template>
+			</Column>
+			<Column
+				id="isbn_col"
+				sortProperty="BooksId">
+				<m:Label text="ISBN" />
+				<template>
+					<m:Text
+						text="{BooksId}"
+						wrapping="false" />
+				</template>
+			</Column>
+			<Column
+				id="author_col"
+				sortProperty="Author">
+				<m:Label text="Author" />
+				<template>
+					<m:Text
+						text="{Author}"
+						wrapping="false" />
+				</template>
+			</Column>
+			<Column
+				id="language_col"
+				sortProperty="Language">
+				<m:Label text="Language" />
+				<template>
+					<m:Text
+						text="{Language}"
+						wrapping="false" />
+				</template>
+			</Column>
+			<Column
+				id="datePublished_col"
+				sortProperty="DatePublished">
+				<m:Label text="Published on" />
+				<template>
+					<m:Text
+						text="{
+						path: 'DatePublished',
+						formatter: '.formatter.date'
+					}"
+						wrapping="false" />
+				</template>
+			</Column>
+			<Column
+				id="nrAvailable_col"
+				sortProperty="NrAvailable">
+				<m:Label text="#Available" />
+				<template>
+					<m:Text
+						text="{= parseInt(${NrAvailable}) }"
+						wrapping="false" />
+				</template>
+			</Column>
+
+		</columns>
+	</Table>
+</mvc:View>
